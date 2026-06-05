@@ -1,6 +1,16 @@
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
+
+Future<void> openMap(String url) async {
+  final Uri uri = Uri.parse(url);
+
+  await launchUrl(
+    uri,
+    mode: LaunchMode.externalApplication,
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -36,7 +46,7 @@ class MyApp extends StatelessWidget {
                 name: 'Mitad del Mundo',
                 location: 'Quito',
               ),
-              ButtonSection(),
+              ButtonSection(mapUrl: 'https://www.google.com/maps/search/?api=1&query=Mitad+del+Mundo+Quito'),
               TextSection(
                 description:
                     'La Ciudad Mitad del Mundo es uno de los lugares turísticos más visitados del Ecuador.',
@@ -47,7 +57,7 @@ class MyApp extends StatelessWidget {
                 name: 'Parque Nacional Cotopaxi',
                 location: 'Latacunga',
               ),
-              ButtonSection(),
+              ButtonSection(mapUrl: 'https://www.google.com/maps/search/?api=1&query=Parque+Nacional+Cotopaxi'),
               TextSection(
                 description:
                     'El volcán Cotopaxi es uno de los volcanes activos más altos del mundo.',
@@ -58,7 +68,7 @@ class MyApp extends StatelessWidget {
                 name: 'Laguna Quilotoa',
                 location: 'Cotopaxi',
               ),
-              ButtonSection(),
+              ButtonSection(mapUrl: 'https://www.google.com/maps/search/?api=1&query=Laguna+Quilotoa'),
               TextSection(
                 description:
                     'La laguna Quilotoa es famosa por el color turquesa de sus aguas.',
@@ -69,7 +79,7 @@ class MyApp extends StatelessWidget {
                 name: 'Baños de Agua Santa',
                 location: 'Tungurahua',
               ),
-              ButtonSection(),
+              ButtonSection(mapUrl: 'https://www.google.com/maps/search/?api=1&query=Baños+de+Agua+Santa'),
               TextSection(
                 description:
                     'Baños es conocida por sus cascadas, deportes extremos y turismo de aventura.',
@@ -80,7 +90,7 @@ class MyApp extends StatelessWidget {
                 name: 'Parque Nacional Cajas',
                 location: 'Cuenca',
               ),
-              ButtonSection(),
+              ButtonSection(mapUrl: 'https://www.google.com/maps/search/?api=1&query=Parque+Nacional+Cajas'),
               TextSection(
                 description:
                     'El Parque Nacional Cajas cuenta con más de 200 lagunas y una gran biodiversidad.',
@@ -91,7 +101,7 @@ class MyApp extends StatelessWidget {
                 name: 'Malecón 2000',
                 location: 'Guayaquil',
               ),
-              ButtonSection(),
+              ButtonSection(mapUrl: 'https://maps.google.com/?q=Malecón+2000'),
               TextSection(
                 description:
                     'El Malecón 2000 es uno de los principales atractivos turísticos de Guayaquil.',
@@ -102,7 +112,7 @@ class MyApp extends StatelessWidget {
                 name: 'Montañita',
                 location: 'Santa Elena',
               ),
-              ButtonSection(),
+              ButtonSection(mapUrl: 'https://www.google.com/maps/search/?api=1&query=Montañita'),
               TextSection(
                 description:
                     'Montañita es famosa por sus playas, surf y vida nocturna.',
@@ -113,7 +123,7 @@ class MyApp extends StatelessWidget {
                 name: 'Parque Nacional Yasuní',
                 location: 'Orellana',
               ),
-              ButtonSection(),
+              ButtonSection(mapUrl: 'https://www.google.com/maps/search/?api=1&query=Parque+Nacional+Yasuní'),
               TextSection(
                 description:
                     'El Yasuní es una de las zonas con mayor biodiversidad del planeta.',
@@ -124,7 +134,7 @@ class MyApp extends StatelessWidget {
                 name: 'Isla San Cristóbal',
                 location: 'Galápagos',
               ),
-              ButtonSection(),
+              ButtonSection(mapUrl: 'https://www.google.com/maps/search/?api=1&query=Isla+San+Cristóbal'),
               TextSection(
                 description:
                     'San Cristóbal es una de las principales islas del archipiélago de Galápagos.',
@@ -135,7 +145,7 @@ class MyApp extends StatelessWidget {
                 name: 'Barrio Las Peñas',
                 location: 'Guayaquil',
               ),
-              ButtonSection(),
+              ButtonSection(mapUrl: 'https://www.google.com/maps/search/?api=1&query=Barrio+Las+Peñas'),
               TextSection(
                 description:
                     'Las Peñas es el barrio más antiguo de Guayaquil y un importante atractivo histórico.',
@@ -253,22 +263,35 @@ class _TitleSectionState extends State<TitleSection> {
 }
 
 class ButtonSection extends StatelessWidget {
-  const ButtonSection({super.key});
+  const ButtonSection({
+    super.key,
+    required this.mapUrl,
+  });
+
+  final String mapUrl;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: const [
-        ButtonWithText(
+      children: [
+        const ButtonWithText(
           icon: Icons.call,
           label: 'CALL',
         ),
-        ButtonWithText(
-          icon: Icons.near_me,
-          label: 'ROUTE',
+
+        IconButton(
+          icon: const Icon(
+            Icons.near_me,
+            color: Colors.teal,
+            size: 30,
+          ),
+          onPressed: () {
+            openMap(mapUrl);
+          },
         ),
-        ButtonWithText(
+
+        const ButtonWithText(
           icon: Icons.share,
           label: 'SHARE',
         ),
