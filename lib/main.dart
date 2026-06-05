@@ -1,121 +1,369 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    const String appTitle = 'Flutter Layout Demo';
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: appTitle,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: const Color.fromARGB(255, 0, 0, 0)),
+        primarySwatch: Colors.teal,
+        scaffoldBackgroundColor: Colors.grey.shade100,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            '🇪🇨 Turismo Ecuador',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor: Colors.teal,
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: const [
+              ImageSection(image: 'images/mitad_del_mundo.jpg'),
+              TitleSection(
+                name: 'Mitad del Mundo',
+                location: 'Quito',
+              ),
+              ButtonSection(),
+              TextSection(
+                description:
+                    'La Ciudad Mitad del Mundo es uno de los lugares turísticos más visitados del Ecuador.',
+              ),
+
+              ImageSection(image: 'images/cotopaxi.jpg'),
+              TitleSection(
+                name: 'Parque Nacional Cotopaxi',
+                location: 'Latacunga',
+              ),
+              ButtonSection(),
+              TextSection(
+                description:
+                    'El volcán Cotopaxi es uno de los volcanes activos más altos del mundo.',
+              ),
+
+              ImageSection(image: 'images/quilotoa.jpg'),
+              TitleSection(
+                name: 'Laguna Quilotoa',
+                location: 'Cotopaxi',
+              ),
+              ButtonSection(),
+              TextSection(
+                description:
+                    'La laguna Quilotoa es famosa por el color turquesa de sus aguas.',
+              ),
+
+              ImageSection(image: 'images/banos.png'),
+              TitleSection(
+                name: 'Baños de Agua Santa',
+                location: 'Tungurahua',
+              ),
+              ButtonSection(),
+              TextSection(
+                description:
+                    'Baños es conocida por sus cascadas, deportes extremos y turismo de aventura.',
+              ),
+
+              ImageSection(image: 'images/cajas.jpg'),
+              TitleSection(
+                name: 'Parque Nacional Cajas',
+                location: 'Cuenca',
+              ),
+              ButtonSection(),
+              TextSection(
+                description:
+                    'El Parque Nacional Cajas cuenta con más de 200 lagunas y una gran biodiversidad.',
+              ),
+
+              ImageSection(image: 'images/malecon2000.jpg'),
+              TitleSection(
+                name: 'Malecón 2000',
+                location: 'Guayaquil',
+              ),
+              ButtonSection(),
+              TextSection(
+                description:
+                    'El Malecón 2000 es uno de los principales atractivos turísticos de Guayaquil.',
+              ),
+
+              ImageSection(image: 'images/montanita.jpg'),
+              TitleSection(
+                name: 'Montañita',
+                location: 'Santa Elena',
+              ),
+              ButtonSection(),
+              TextSection(
+                description:
+                    'Montañita es famosa por sus playas, surf y vida nocturna.',
+              ),
+
+              ImageSection(image: 'images/yasuni.jpg'),
+              TitleSection(
+                name: 'Parque Nacional Yasuní',
+                location: 'Orellana',
+              ),
+              ButtonSection(),
+              TextSection(
+                description:
+                    'El Yasuní es una de las zonas con mayor biodiversidad del planeta.',
+              ),
+
+              ImageSection(image: 'images/san_cristobal.jpg'),
+              TitleSection(
+                name: 'Isla San Cristóbal',
+                location: 'Galápagos',
+              ),
+              ButtonSection(),
+              TextSection(
+                description:
+                    'San Cristóbal es una de las principales islas del archipiélago de Galápagos.',
+              ),
+
+              ImageSection(image: 'images/las_penas.jpg'),
+              TitleSection(
+                name: 'Barrio Las Peñas',
+                location: 'Guayaquil',
+              ),
+              ButtonSection(),
+              TextSection(
+                description:
+                    'Las Peñas es el barrio más antiguo de Guayaquil y un importante atractivo histórico.',
+              ),
+
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Text(
+                  'Hecho por Odaliz Balseca',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class TitleSection extends StatefulWidget {
+  const TitleSection({
+    super.key,
+    required this.name,
+    required this.location,
+  });
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  final String name;
+  final String location;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<TitleSection> createState() => _TitleSectionState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _TitleSectionState extends State<TitleSection> {
+  bool isFavorite = true;
+  int favoriteCount = 41;
 
-  void _incrementCounter() {
+  void toggleFavorite() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      if (isFavorite) {
+        favoriteCount--;
+        isFavorite = false;
+      } else {
+        favoriteCount++;
+        isFavorite = true;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+    return Card(
+      margin: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 5,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
           children: [
-            const Text('You have pushed the button this many times:'),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.name,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    widget.location,
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              icon: Icon(
+                isFavorite
+                    ? Icons.favorite
+                    : Icons.favorite_border,
+                color: Colors.red,
+                size: 30,
+              ),
+              onPressed: toggleFavorite,
+            ),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              '$favoriteCount',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+}
+
+class ButtonSection extends StatelessWidget {
+  const ButtonSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: const [
+        ButtonWithText(
+          icon: Icons.call,
+          label: 'CALL',
+        ),
+        ButtonWithText(
+          icon: Icons.near_me,
+          label: 'ROUTE',
+        ),
+        ButtonWithText(
+          icon: Icons.share,
+          label: 'SHARE',
+        ),
+      ],
+    );
+  }
+}
+
+class ButtonWithText extends StatelessWidget {
+  const ButtonWithText({
+    super.key,
+    required this.icon,
+    required this.label,
+  });
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          icon,
+          color: Colors.teal,
+          size: 30,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(
+            label,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: Colors.teal,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TextSection extends StatelessWidget {
+  const TextSection({
+    super.key,
+    required this.description,
+  });
+
+  final String description;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 10,
+      ),
+      child: Text(
+        description,
+        textAlign: TextAlign.justify,
+        style: const TextStyle(
+          fontSize: 15,
+          height: 1.5,
+        ),
+      ),
+    );
+  }
+}
+
+class ImageSection extends StatelessWidget {
+  const ImageSection({
+    super.key,
+    required this.image,
+  });
+
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 8,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        child: Image.asset(
+          image,
+          width: double.infinity,
+          height: 250,
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
